@@ -1,7 +1,8 @@
 # OOP-Reference
 Object-oriented Programming in JavaScript: Made Super Simple
 
-# TABLE OF CONTENT:\ 
+# TABLE OF CONTENT:
+\
  Start 1- Introduction\
  Start 2- Object Literals\
  Start 3- Factories\
