@@ -6,7 +6,7 @@ Object-oriented Programming in JavaScript: Made Super Simple
  Preview 1- What is OOP\
  Preview 2- Four Pillars of OOP\
  Preview 3- Setting Up the Development Environment\
- Start 4- Course Structure\
+ Start 4- Course Structure
  ***
  Start 1- Introduction\
  Start 2- Object Literals\
@@ -34,7 +34,7 @@ Object-oriented Programming in JavaScript: Made Super Simple
  Start 8- Avoid Extending the Built-in Objects\
  Start 9- Cheat Sheet\
  Start 10- Exercise\
- Start 11- Solution\
+ Start 11- Solution
  ***
  Start 1- Creating Your Own Prototypical Inheritance\
  Start 2- Resetting the Constructor\
@@ -48,7 +48,7 @@ Object-oriented Programming in JavaScript: Made Super Simple
  Start 10- Exercise- Prototypical Inheritance\
  Start 11- Solution- Prototypical Inheritance\
  Start 12- Exercise- Polymorphism\
- Start 13- Solution- Polymorphism\
+ Start 13- Solution- Polymorphism
  ***
  Start 1- ES6 Classes\
  Start 2- Hoisting\
@@ -61,7 +61,7 @@ Object-oriented Programming in JavaScript: Made Super Simple
  Start 9- Method Overriding\
  Start 10- Cheat Sheet\
  Start 11- Exercise\
- Start 12- Solution\
+ Start 12- Solution
  ***
  Start 1- Modules\
  Start 2- CommonJS Modules\
