@@ -1,0 +1,333 @@
+Object Literals
+===================================================
+
+varible name curlyBraces (also now as object literal syntax)
+const circle = {};
+
+- Object literals is a simple ways to define objects
+- Using this is only a issue when you want to duplicated it and it has behaviour(one method or more)
+
+
+Factory Function
+===================================================
+
+- Lets say we want to create another cirlce aboject (literals file), we would have to duplicate all that code over again right??
+
+- No this could be a problem! if we have one or more methods inside our object, so if there is a bug in one of those methods, you'd have to come back and fix it in multiple places.
+
+- If a object has one or more methods, we say that, that object has behaviour
+
+- Now imagine that object had 10 methods.
+
+SO WHAT'S THE SOLUTION?
+
+- The solution is to use a factory or a constructor function
+- The factory function takes in parameters and returns an obeject
+
+
+Constructor Function
+===================================================
+
+- The naming convention that we use with a contructor function is slightly different, the first letter should always b uppercase(comes from a CLASS convetions in other languages)
+
+- The constructor function takes in parameters and then we use THIS to set properties on the new object created when we use the new keyword
+
+- When we use the new operator, a few things happen under the hood.
+
+- A new empty is created {}
+- It will set THIS to point to that object
+- Then it will return that object automatically from the constructor function
+
+
+In short
+===================================================
+
+- if you return an object from a function it is known as a factory function
+- If you use the this keyword along with new, it is a constructor function
+
+but what is the difference which approach should you use?
+
+- Well it depends on who you ask. 
+
+- Some will say Constructor functions because it looks closer to other languages
+
+- While others will say factory functions and one of the arguements is...what if the developer forgets to use the new operator. Then you'll be defining the property methods on the global object.
+
+SO JUST USE WHATEVER YOU WANT!
+
+
+===================================================
+===================================================
+===================================================
+===================================================
+===================================================
+
+
+Constructor Property
+===================================================
+
+- Every object in Javascript has a property called constructor and that references the function that was use to construct or create that object
+
+**(constructor file)**
+another.constructor will return the function it was created from
+
+**(factory file)**
+circle.constructor will return a function and as you can see the first letter of this function is uppercase
+
+EXAMPLE: f Object() {}
+
+- So this is a built in function constructor
+- When we create an Object using the Object literal syntax. Internally the javascript engine uses this constructor function.
+
+EXAMPLE:
+
+- let x = {};
+- Javscript will translate that into something like this
+- let x = new Object();
+
+**(factory file)**
+- So the circle object we create it and return it from our factory function and because we used the object literal syntax internally it was created using this Object constructor function
+
+- In Javascript we have a few other built in constructors
+
+EXAMPLE:
+
+- new String(); '',"", ``
+- new Boolean(); true, false
+- new Number(); 1, 2, 3
+
+- but most of the time we use the literals, beacuse its simplier and cleaner
+
+
+In short
+===================================================
+
+- Every object has a constructor property
+- And that references the function that was used to create that object
+
+
+===================================================
+===================================================
+===================================================
+===================================================
+===================================================
+
+
+Functions are Objects
+===================================================
+
+- One of the confusing concepts in Javascript is that here functions are objects
+
+- When we declare a function using this syntax 
+function name = () {}
+
+- The javascript engine will use the function constructor to create the object.
+
+EXAMPLE:
+
+- Whats happening under the hood, when declaring the constructor function
+
+const Circle1 = new Function('radius', `
+this.radius = radius;
+this.draw = function() { console.log('draw');
+}`);
+
+const circle = new Circle1(1);
+circle = Circle1.call({}, 1);
+
+console.log(circle.radius);
+
+
+===================================================
+===================================================
+===================================================
+===================================================
+===================================================
+
+
+Value vs Reference Types
+===================================================
+
+ValueTypes: Number, String, Boolean, Symbol, Undefined, Null
+ReferenceTypes: Objecst, Functions, Arrays
+
+- So what we've learned is that functions are objects and so are arrays. So in a nutshell. In javascript we have primitives and objects.
+
+How does primitives and objets behave differently?
+
+lets define two primitives
+- let x = 10;
+- let y = x;
+- x = 20;
+
+console.log(x); - 20
+console.log(y); - 10
+
+- What I want you to note here is that x and y are two independant varaibles.
+
+- So when we work with primitives, the value is stored inside of the variable, when we copy that variable to another variable. That value that is stored in that variable is copied into the new variable. So they are completely independant of each other.
+
+- So when we change X at the end here, only X will change as Y has nothing to do with X anymore, it has already stored the value it needs.
+
+
+Now with reference types
+- let x = {value: 10};
+- let y = x;
+- x.value = 20;
+
+console.log(x); - {value: 20}
+console.log(y); - {value: 20}
+
+- So this is the take away
+
+- When we use a reference type. That value is not stored inside of the variable, that value is stored somewhere else in memory and the address of that memory location is stored inside the variable.
+
+- So when we copy, x into y, it's pointing to the location and getting the value, the same as what x is doing. So the value will always remain the same when shared.
+
+
+Conclusion
+- Primitives are copied by their value
+- Objects are copied by their reference
+
+
+===================================================
+===================================================
+===================================================
+===================================================
+===================================================
+
+
+Add and Removing Properties
+===================================================
+
+function Circle(radius) {
+  this.radius = radius;
+  this.draw = function() {
+    console.log('draw');
+  }
+}
+
+const circle = new Circle(10);
+
+- these objects in Javascript are dynamic, that means that you can add extra properties in them or delete un-wanted properties
+
+- You might be wondering, "Why is this useful?"
+
+- Imagine you are working with a User object, the client is going to send a user object to the server. On the server when get this object and then we add addition stuff to it.
+
+- And because we don't have classes, we don't need to define these properties ahead of time. We can add them on the fly when ever we need them. And this makes Javascript extremely powerful.
+
+- This can be done with DOT NOTATION or BRACKET NOTATION this does the exactly the same thing.
+
+- HOWEVER, there are some cases where you would want to use the bracket notation.
+
+- When you want to Dynamically access a property name. When you don't know what for example the id you need onload because it gets calculate on run time. We can access it like this.
+
+const idForUser = id;
+userId[idForUser];
+
+- Another case is when you are using property names that are not valid identifiers
+
+const propertyName = 'center-location'
+
+property.center-location - will not work
+propert['center-location'] - this will work
+
+
+- We can also delete, incase we don't want certain information to be kept inside of the object
+
+EXAMPLE:
+
+delete object.value
+delete object['value']
+
+
+===================================================
+===================================================
+===================================================
+===================================================
+===================================================
+
+
+Enumeration Properties
+===================================================
+
+- Sometimes you need to iterate over or enumerate the properties of a object. We can do that by using the For in loop
+
+EXAMPLE:
+
+for (let key in circle) {
+  console.log(key);
+}
+
+- the key property here will console.log all the properties and methods keys inside of the object.
+
+- now if you want to access the values of these properties we can use the bracket notation
+
+EXAMPLE:
+
+for (let key in circle) {
+  console.log(circle, circle[key]);
+}
+
+- So in this example we get back the keys and the values
+
+- There is another way of getting all the keys in a object and that way is to use. However with this approach we cannot seperate properties from methods 
+**Enumeration Properties file** 
+
+const keys = Object.keys('object-name'). 
+
+- This will return all the keys back to you as an array.
+
+
+- Sometimes you want to know if an object has a certain property or method and you can do this by using the IN operator
+**Enumeration Properties file** 
+
+
+===================================================
+===================================================
+===================================================
+===================================================
+===================================================
+
+
+Getters and Setters
+===================================================
+
+- When we have private properties, we cannot access this on the outside. But if we want to display this inforamtion somewhere inside the application.
+
+- We don't want to modify it. We just want to show it.
+
+- One solution is to use. 
+this.getDefaultLocation = function {return defaultLocation}
+**Getter and Setters file** 
+
+- So we create a property on the object that gets the variable and returns it via closures. And with that we can called Object.getDefaultLocation();
+
+- This works, however there is a cleaner way to do this.
+
+- The way we do that is use Object.defineProperty()
+
+- Now the arguments for this method is
+#1 - is the Object that we want to add a new property to
+#2 - the name of the property you want to add
+#3 - Object, in this object we add a key value pair called get and the value is a function
+
+- And that function will return defaultLocation as a read only file in our case.
+
+- We can also now call it using .dot/bracket notation
+**Getter and Setters file** 
+
+
+Want to set a value on the outside?
+
+- Lets define a setter
+
+- So in this object - defineProperty. We add another key value pair after get called set and the value of that is a function.
+
+- That function takes a arguement called value and then we can set this defaultLocation variable to value.
+**Getter and Setters file** 
+
+- And because the setter is a function, we can do whatever we want with the data before we set it. For example like validation that the information is correct and not falsy
+
+
