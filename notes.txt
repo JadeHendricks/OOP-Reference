@@ -1,0 +1,58 @@
+4 Pillars of Object-orientated Programming
+================================================
+
+#1 - Encapsulation
+#2 - Abstraction
+#3 - Inheritance
+#4 - Polymorphism
+
+
+Encapsulation
+
+- in OOP, we combine a group of related variables and functions in a unit, we call these units objects and this is what we call encapsulation.
+
+- We call the functions methods and the variables properties
+
+
+Abstraction
+
+- We can hide some of the properties and methods from the outside and this gives us a couple of benefits.
+
+- We'll make the interface of those objects simpler 
+(using and understanding an object with just a few a few properties and methods is much better with a much larger object)
+
+- We hide the detailsa nd the complexity and show only the essentials
+
+- Reduce the impact of change, so we can make changes to our object or even remove methods and none of these changes will leak to the outside....because we don't have any code that touches these methods outside of the containing object.
+
+
+Inheritance
+
+- Inheritance is a mechanism to eliminate redundant code
+- Creating one thing that can be used by many things at the same time.
+
+
+Polymorphism
+
+- Poly means "many"
+- Morph means "form"
+- So Polymorphism means "Many forms"
+
+- In OOP programming Polymophism is a technique that allows you to get rid of long if/else/switch statements
+
+- If you would want to render multiple HTML elements in a normal way, our code would be very long.
+
+- But with OOP, we can include a render method in each of these objects and the render method will behave differently depending on the type of object you are referencing
+
+- So instead of having all those lines of code we can do something like this element.render()
+
+
+The Benefit of OOP
+================================================
+
+Encapsulation - Reduce complexity, increase reusability 
+Abstraction - Reduce complexity, isolate impact of changes
+Inheritance - eliminate redundant code
+Polymorphism - Refactor ugly switch/case statements
+
+
