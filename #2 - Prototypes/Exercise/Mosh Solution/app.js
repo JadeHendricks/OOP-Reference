@@ -1,4 +1,6 @@
 function Stopwatch() {
+  //we need to define it as a read only property so we can access it, because it only exsists in this function at the moment
+  //then we can access it with this inside of our prototype functions
   let running, startTime, endTime, duration = 0;
 
   Object.defineProperty(this, 'duration', {
@@ -11,6 +13,8 @@ function Stopwatch() {
 }
 
 Stopwatch.prototype.start = function() {
+  //we need to define it as a read only property so we can access it, because it does not exsists in this function
+  //then we can access it with this
   if (this.running) {
     throw new Error('The Stopwatch is already running.')
   } else {
@@ -20,6 +24,8 @@ Stopwatch.prototype.start = function() {
 }
 
 Stopwatch.prototype.stop = function() {
+  //we need to define it as a read only property so we can access it, because it does not exsists in this function
+  //then we can access it with this
   if (!this.running) {
     throw new Error('The Stopwatch is not running.')
   } else {
@@ -32,6 +38,8 @@ Stopwatch.prototype.stop = function() {
 }
 
 Stopwatch.prototype.restart = function() {
+  //we need to define it as a read only property so we can access it, because it does not exsists in this function
+  //then we can access it with this
   this.running = false;
   this.duration = 0;
   this.startTime = null;
