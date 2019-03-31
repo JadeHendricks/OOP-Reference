@@ -1,0 +1,119 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}{\f1\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs28\lang9 Creating your own Prototypical inheritence\par
+===================================================\par
+\b0\fs24 - Lets say we have a circle function constructor and it has a method on its prototype called duplicate. However we also want that method on a new constructor we made called square.\par
+- How to we go above sharing it across different Objects?\par
+- Lets Create a new Object called Shape and put the duplicate object there and then let Circle and Square inherit it from the new Shape Object\par
+- In short, We need to set the prototype of our Cirlce / Sqaure constructors to the prototype of the Shape Constructor which now has the Duplicate method in it's prototype.\par
+- We have a method from creating an Object with a given prototype, this method is called Object.create.\par
+\par
+- Object.create takes in\line #1 - The Object to use as it's prototype\par
+- So we want a new Circle Object to be created using Object.create and allowing it to inherti from Shape.prototype\par
+\par
+\b EXAMPLE\par
+\b0 Circle.prototype = Object.create(Shape.prototype);\par
+\par
+- So now the Circle Object with have it's methods aswell as the methods of the \par
+- If we want to keep our prototype the same and also inherit from the Shape Prototype, We would need to add the Circle.prototype = Shape.prototype line before we add more methods to the Circle Prototype itself.\par
+- This will result us to add to our Circle prototype while also inheriting from the Shape Prototype.\par
+\par
+\b Example - \b0 Setting the prototype before adding methods to Circle Prototype\par
+\b Circle.prototype = Object.create(Shape.prototype);\par
+Circle.prototype.draw = function() \{ console.log('draw')\}\par
+\par
+\b0 #1 - Circle Object Properties and Methods and inhertis from Circle.prototype.\par
+#2 - Circle Prototype that inherits from Shape.prototype\par
+#3 - Shape.prototype that inhertis from Object.prototype\par
+\par
+\b Example - \b0 Setting the prototype after adding methods to Circle Prototype\par
+\b Circle.prototype.draw = function() \{ console.log('draw')\}\b0\par
+\b Circle.prototype = Object.create(Shape.prototype);\par
+\par
+\b0 #1 - Circle Object Properties and Methods and inhertis from Shape.prototype.\par
+#2 - Shape.prototype that inhertis from Object.prototype\par
+#3 - Cirlce.prototype gets overwritten\par
+\par
+\b\fs28 Resetting the constructor\par
+===================================================\par
+\b0\fs24 - There is a slight problem with the method above.\par
+- As mentioned before, every Object has a constructor property that returns the function or Object used to create or construct that Object.\par
+- Now that Circle is inheriting the Shape Object it's constructor is now Shape and not Circle anymore.\par
+- So now when we run new Circle() = this will not be created dynamically and does not exisit anymore properties will return undefined.\par
+\b new Circle === new Circle.prototype.constructor\par
+-\b0  So as a best practise, when you reset the prototype of the object, you should also reset it's constructor. This will reset our constructor and keep all the inheritrence the same as it was.\par
+\b\par
+\fs28 Calling the super constructor\par
+===================================================\par
+\b0\fs24 - In the Circle constructor, we should call the Shape constructor in order to get the properties that it holds, to be used with our Circle Object.\par
+- A easy way to do this is by doing this: (this won't work)\par
+\par
+\b Example:\b0\par
+function Shape(color)\{this.color = color;\}\line function Circle (radius, color)\{\line\tab Shape(color);\line\tab this.radius = radius;\line\}\par
+const c = new Circle(1, 'red');\line\line - By doing this, the color will not show up on the Circle at all. \b By why didn't this work\b0 ??\par
+- Early we spoke about, that when you use the new keyword, three things happend\line\line #1 - Creates a new Empty Object\line #2 - Set "This" to point to that object\line #3 - That new Object will be returned by the constructor\par
+\par
+- Also if you don't use the new Operator "this" by default will point to the Global Object.\par
+\par
+- In short, the reason why this didn't work is because. Here we are calling the Shape function inside of the Circle Function and by default, "This" inside the  Shape function will point to the global Object.\par
+- So we didn't set the color property on the new Instance of the Circle Object. We set it on the Window Object. (console.log(window.color));\par
+\b So how do we fix this Problem?\par
+\b0 - We don't want to use the new Operator inside the Circle Object, because this will create another new Object and then set the color property on that Object, which is not the correct Object. We want to use the Object that is referenced by this.\par
+- So to fix this Problem. We need to call the Shape function and set this to point to the new Instance of the Circle Object. \par
+- Every Funtion in Javascript is an Object....soooo, lets use this : \b Shape.call(this, color);\par
+- \b0 What call does is calls a function(Shape), sets THIS to what you want it to be and gets passed parameters\par
+\par
+\b\fs28 Method Overriding\par
+===================================================\par
+\b0\fs24 - Sometimes as you work with Inheritence, you may face a situation, the implimentation you have defined in a Parent Object may not be ideal in a Child Object\par
+- So lets imagine the duplication method works for most shapes, but maybe it should work abit differently for Circle Objects. Thats when we use Method Overriding.\par
+- So we overwrite the method that is defined in the Shape prototype. We need to do this below the extend Method\line (**See method overiding)\par
+- When then duplicate the method in the Shape prototype to the Circle prototype and make it slightly different.\par
+\b EXAMPLE:\par
+\b0 Shape.prototype.duplicate = function() \{\line\tab console.log('duplicate');\line\}\par
+extend();\par
+Circle.prototype.duplicate = function() \{\line\tab console.log('duplicate changed!')\line\}\par
+\b - \b0 The reason this works goes back to how prototypical inheritence works in Javascript. When we access a method or a property on a Object Javascript will walk up the proto chain and finds the first implementation of that method/property. So by setting it on the Circle prototype. It is the closer of the two and it will be called.\par
+\b Want to call them the implementation on the parent aswell?\par
+EXAMPLE:\par
+\b0 Circle.prototype.duplicate = function() \{\line\tab Shape.prototype.dupliate.call(this);\line\tab console.log('duplicate changed!')\line\}\par
+- We need to use this to set the this to Circle and not the window.Object\par
+\par
+\b\fs28 When to use inheritance\par
+===================================================\b0\fs24\par
+- While inheritance is very powerful tool to use. We need to make sure we are very careful when using it, because it can make your source code complex and fragile.\par
+- So don't use inheritance just for the sake of using it, especially in small projects. (keep it simple)\par
+- Start with simple Objects and then if you see a number of these Objects share similar features. The perhaps you can encapsulate those features inside of generic Object to inherit from.\par
+- But remember Inheritence is not the only solution for code re-use. There is another technique called composition\par
+- \b Avoid creating inheritance hierarchies, do not go more than one level of inheritence\par
+- Some say composition over inheritence (incomes mixins), create many objects of different things and compose them in a new Object depending on what you want.\par
+\par
+\fs28 Mixins / Composition\par
+===================================================\b0\fs24\par
+- Object.assign, we can use this to assign one Objects properties and methods to another. It takes\line\line #1 - An empty Object as its target\line #2 - And then we can pass 1 or more source Objects\par
+- Then it will copy all of the properties and methods from the source Objects into the blank Object\line\par
+- const person = Object.assign(\{\}, canWalk, canEat);\par
+- if we are using a constructor function, we can still use this technique\par
+\b\par
+Example:\par
+\b0 const canEat = \{eat:function()\{console.log('eating')\}\}\b\line\b0 const canWalk = \{walk:function()\{console.log('walking')\}\}\par
+function Person()\{\}\par
+Object.assign(Person.prototype, canEat, canWalk);\par
+const person = new Person();\par
+- This will show all those functions inside of th ePerson Prototype.\par
+\par
+\b Example2:\par
+\b0 function Goldfish() \{\}\line Object.assign(Goldfish.prototype, canEat, canSwim);\line\par
+const goldfish = new Goldfish ();\par
+- See how powerful this could be, we can mix anything that we want through mixins/composition.\b\par
+\par
+\b0\par
+\b\par
+\par
+\par
+\b0\par
+\par
+\f1\fs22\par
+\par
+}
+ 
