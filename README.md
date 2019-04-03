@@ -7,5 +7,4 @@ Getting Started\
 Objects\
 Prototypes\
 Prototypical Inheritance\
-ES6 Classes\
-ES6 Tooling
+ES6 Classes
