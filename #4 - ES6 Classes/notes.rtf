@@ -84,5 +84,9 @@ Method Overiding\line ====================================================\par
 \b Example\b0 :\par
 constructor(firstName, lastName)\{\line\tab this.firstName = firstName;\line\tab this.lastName = lastName;\line\tab this.hasJob = false;\line\}\line\line class Anything extends Parent \{\line\tab constructor(firstName, lastName, job) \{\line\tab\tab super(firstName, lastName);\par
 \tab\tab //this is what super brings in\line\tab\tab this.firstName = firstName;\line\tab\tab this.lastName = lastName;\line\tab\tab this.hasJob = false;\line\line\tab\tab this.job = job;\line\tab\tab this.hasJob = true;\line\tab\}\line\}\par
+\par
+- We can also call other methods inside of a different method using super \b Example\b0 :\par
+\par
+\b Parent Class\b0\line walk()\{\line   console.log('walking from parent')\line\}\line\line\b Child Class\b0\line walk()\{\line   super.walk();\line   console.log('walking from child')\line\}\par
 }
  
