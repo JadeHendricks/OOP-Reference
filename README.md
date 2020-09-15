@@ -1,7 +1,7 @@
-# OOP-Reference
+## OOP-Reference
 Object-oriented Programming in JavaScript: Made Super Simple
 
-# TABLE OF CONTENT:
+### TABLE OF CONTENT:
 
 Getting Started\
 Objects\
